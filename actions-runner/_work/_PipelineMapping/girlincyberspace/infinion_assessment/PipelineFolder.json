@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "girlincyberspace/infinion_assessment",
+  "pipelineDirectory": "infinion_assessment",
+  "workspaceDirectory": "infinion_assessment\\infinion_assessment",
+  "repositories": {
+    "girlincyberspace/infinion_assessment": {
+      "repositoryPath": "infinion_assessment\\infinion_assessment",
+      "lastRunOn": "11/15/2025 15:11:09 +01:00"
+    }
+  },
+  "lastRunOn": "11/15/2025 15:13:13 +01:00"
+}
