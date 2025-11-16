@@ -7,3 +7,9 @@ variable "tags" {
     terraform   = "true"
   }
 }
+
+variable "vm_admin_password" {
+  description = "The admin password for virtual machines."
+  type        = string
+  sensitive   = true
+}

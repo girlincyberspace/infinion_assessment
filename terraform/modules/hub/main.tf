@@ -13,11 +13,3 @@ resource "azurerm_subnet" "firewall_subnet" {
   virtual_network_name = azurerm_virtual_network.hub.name
   address_prefixes     = var.firewall_subnet_prefix
 }
-
-resource "azurerm_subnet" "bastion_subnet" {
-  name                 = "AzureBastionSubnet"
-  resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.hub.name
-  address_prefixes     = var.bastion_subnet_prefix
-  
-}

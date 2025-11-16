@@ -29,12 +29,6 @@ variable "firewall_subnet_prefix" {
 
 }
 
-variable "bastion_subnet_prefix" {
-  description = "Address prefix for the Bastion subnet"
-  default     = "10.0.1.0/24"
-
-}
-
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
