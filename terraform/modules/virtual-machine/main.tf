@@ -2,7 +2,8 @@ resource "azurerm_public_ip" "nic-pip" {
   name                = "pip-nic"
   location            = var.location
   resource_group_name = var.resource_group_name
-  allocation_method   = "Dynamic"
+  sku = "Standard"
+  allocation_method   = "Static"
   tags                = var.tags
 }
 

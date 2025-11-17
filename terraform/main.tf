@@ -10,6 +10,7 @@ terraform {
 }
 
 provider "azurerm" {
+  subscription_id = var.subscription_id
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false
@@ -19,8 +20,8 @@ provider "azurerm" {
 
 module "resource_group" {
   source              = "./modules/resource_group"
-  name = "hub-spoke-rg"
-  location          = "eastus"
+  resource_group_name = "hub-spoke-rg"
+  location          = "centralus"
   tags = {
     environment = "production"
     project     = "hub-spoke-network"
@@ -29,7 +30,7 @@ module "resource_group" {
 
 module "hub" {
   source              = "./modules/hub"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   hub_vnet_name = "vnet-hub"
   hub_address_space   = ["1.0.0.0/16"]
@@ -39,7 +40,7 @@ module "hub" {
 
 module "firewall" {
   source              = "./modules/firewall"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   firewall_name      = "hub-firewall"
   firewall_subnet_id = module.hub.firewall_subnet_id
@@ -54,7 +55,7 @@ module "firewall" {
 
 module "spoke1" {
   source              = "./modules/spoke"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   spoke_vnet_name     = "vnet-spoke1"
   spoke_address_space = ["10.1.0.0/16"]
@@ -69,7 +70,7 @@ module "spoke1" {
 
 module "spoke2" {
   source              = "./modules/spoke"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   spoke_vnet_name     = "vnet-spoke2"
   spoke_address_space = ["10.2.0.0/16"]
@@ -84,7 +85,7 @@ module "spoke2" {
 
 module "spoke_nsg" {
   source              = "./modules/nsg"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   nsg_name            = "spoke-workload-nsg"
   tags                = module.resource_group.tags
@@ -142,7 +143,7 @@ resource "azurerm_subnet_network_security_group_association" "spoke2_workload_su
 
 module "vm1" {
   source              = "./modules/virtual-machine"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   vm_name             = "spoke1-vm1"
   vm_size             = "Standard_B1s"
@@ -163,7 +164,7 @@ module "vm1" {
   
 module "vm2" {
   source              = "./modules/virtual-machine"
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   vm_name             = "spoke2-vm1"
   vm_size             = "Standard_B1s"

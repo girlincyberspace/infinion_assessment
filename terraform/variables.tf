@@ -13,3 +13,9 @@ variable "vm_admin_password" {
   type        = string
   sensitive   = true
 }
+
+variable "subscription_id" {
+  description = "The Azure Subscription ID."
+  type        = string
+  
+}

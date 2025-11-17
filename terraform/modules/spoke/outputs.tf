@@ -15,6 +15,6 @@ output "spoke_route_table_id" {
 
 output "vnet_cidr" {
   description = "The CIDR block of the spoke virtual network."
-  value       = azurerm_virtual_network.spoke.address_space[0]
+  value       = tolist(azurerm_virtual_network.spoke.address_space)[0]
   
 }
